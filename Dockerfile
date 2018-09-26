@@ -5,6 +5,7 @@ ENV JENKINS_HOME /home/jenkins
 ENV JENKINS_REMOTNG_VERSION 2.7.1
 
 ENV DOCKER_HOST tcp://0.0.0.0:2375
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories
 
 # Install requirements
 RUN apk --update add \
@@ -23,7 +24,7 @@ RUN echo "jenkins ALL=(ALL) NOPASSWD: /usr/local/bin/docker" > /etc/sudoers.d/00
     && chmod 440 /etc/sudoers.d/00jenkins
 
 # Install Jenkins Remoting agent
-RUN curl --create-dirs -sSLo /usr/share/jenkins/slave.jar http://repo.jenkins-ci.org/public/org/jenkins-ci/main/remoting/2.52/remoting-2.52.jar \
+RUN curl --create-dirs -sSLo /usr/share/jenkins/slave.jar http://repo.jenkins-ci.org/public/org/jenkins-ci/main/remoting/3.20/remoting-3.20.jar \
   && chmod 755 /usr/share/jenkins \
   && chmod 644 /usr/share/jenkins/slave.jar
 
